@@ -1,0 +1,28 @@
+library(shiny)
+shinyServer(
+  function(input, output) {
+    output$x1 <- renderPrint({input$x1})
+    output$x2 <- renderPrint({input$x2})
+    output$x3 <- renderPrint({input$x3})
+    output$x4 <- renderPrint({input$x4})
+    output$x5 <- renderPrint({input$x5})
+    output$y1 <- renderPrint({input$y1})
+    output$y2 <- renderPrint({input$y2})
+    output$y3 <- renderPrint({input$y3})
+    output$y4 <- renderPrint({input$y4})
+    output$y5 <- renderPrint({input$y5})
+    output$new <- renderPrint({input$new})
+    output$date <- renderPrint({input$date})
+    xv <- reactive({c(input$x1,input$x2,input$x3,input$x4,input$x5)})
+    yv <- reactive({c(input$y1,input$y2,input$y3,input$y4,input$y5)})
+    fit <- reactive({lm(yv()~xv())})
+    p <- reactive({as.numeric(coef(fit())[1] + coef(fit())[2] * input$new)})
+    output$p <- renderPrint({p()})
+    output$newHist <- renderPlot({
+      plot(xv(), yv(), xlab="X Values", ylab="Y Values", pch=20,cex=1.2)
+      abline(fit(), col="blue")
+      points(input$new, p(), col='red',pch=19)
+    })
+    output$train <- renderTable({data.frame(xvalues=xv(),yvalues=yv())})
+  }
+)
