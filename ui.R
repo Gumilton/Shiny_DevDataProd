@@ -1,6 +1,6 @@
 library(shiny)
 shinyUI(pageWithSidebar(
-  headerPanel("Paired Inputs"),
+  headerPanel("Linear Regression and Prediction"),
   sidebarPanel(
     numericInput('x1', 'Numeric input, x1', 0),
     numericInput('y1', 'Numeric input, y1', 0),
@@ -17,7 +17,7 @@ shinyUI(pageWithSidebar(
     submitButton('Submit')
   ),
   mainPanel(
-    h3('Linear Regression and Prediction'),
+    h3('Introduction'),
     p('This App will allow you to input 5 pairs of data as training data and predict 
       the outcome value based on a new single data point that you put in. Basically, you
       could enter 10 numbers from 5 pairs of data, each by each on the left side, the
